@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Melhorando o Javascript</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      text-align: center;
+      /* overflow: hidden; */
+
+      & .sect {
+        position: relative;
+
+        & .center {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: calc(100vh - 37px);
+
+          & img {
+            width: 400px;
+            height: 350px;
+          }
+        }
+
+        & .flex {
+          display: flex;
+          gap: 32px;
+          margin: 0 40px;
+        }
+
+      }
+
+      .prev {
+        content: '';
+        position: absolute;
+        top: calc(50% - 25px);
+        left: 40px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: inline-block;
+        background: radial-gradient(circle, magenta, transparent);
+        border: 2px solid white;
+        cursor: pointer;
+      }
+
+      .next {
+        content: '';
+        position: absolute;
+        top: calc(50% - 25px);
+        right: 40px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: inline-block;
+        background: radial-gradient(circle, magenta, transparent);
+        border: 2px solid white;
+        cursor: pointer;
+      }
+
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>Teste</h1>
+
+  <section class="sect">
+    <div class="flex">
+      <div class="prev"></div>
+      <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
+      <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
+      <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
+      <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
+      <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
+      <div class="next"></div>
+    </div>
+  </section>
+</body>
+
+<script>
+  const slider = document.querySelector('.flex')
+
+  const prev = document.querySelector('.prev');
+  const next = document.querySelector('.next');
+
+  const imgs = document.querySelectorAll('.center');
+
+  function HandleNext(event) {
+
+    console.log(event.target)
+  }
+
+  next.addEventListener('click', HandleNext)
+
+  console.log(imgs)
+</script>
+
+</html>
