@@ -13,6 +13,8 @@
     }
 
     body {
+      overflow-x: hidden;
+
       text-align: center;
       /* overflow: hidden; */
 
@@ -32,9 +34,10 @@
         }
 
         & .flex {
+          transition: .7s ease-out;
           display: flex;
+          margin-left: 40px;
           gap: 32px;
-          margin: 0 40px;
         }
 
       }
@@ -51,6 +54,8 @@
         background: radial-gradient(circle, magenta, transparent);
         border: 2px solid white;
         cursor: pointer;
+        z-index: 1000;
+
       }
 
       .next {
@@ -65,6 +70,7 @@
         background: radial-gradient(circle, magenta, transparent);
         border: 2px solid white;
         cursor: pointer;
+        z-index: 1000;
       }
 
     }
@@ -76,34 +82,77 @@
   <h1>Teste</h1>
 
   <section class="sect">
-    <div class="flex">
-      <div class="prev"></div>
+    <div class="prev"></div>
+    <div class="next"></div>
+
+    <div class="flex" style="border: 2px solid red;">
       <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
+      <div class="center"><img width="700px" src="paisagem1.jpg" alt=""></div>
       <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
+      <div class="center"><img width="700px" src="paisagem1.jpg" alt=""></div>
       <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
-      <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
-      <div class="center"><img width="700px" src="floresta.jpg" alt=""></div>
-      <div class="next"></div>
     </div>
   </section>
 </body>
 
 <script>
+  // ----------------------teste---------------------------
+
+  // const teste = ['banana', 'maça', 'uva', 'pera']
+  // console.log(teste[0])
+
+  // ------------------------------------------------------
+
   const slider = document.querySelector('.flex')
 
   const prev = document.querySelector('.prev');
   const next = document.querySelector('.next');
 
-  const imgs = document.querySelectorAll('.center');
+  const [...imgs] = document.querySelectorAll('.center');
+
+  let currentIndex = 0;
+  let dist = [];
 
   function HandleNext(event) {
+    if (currentIndex <= imgs.length - 1) {
+      currentIndex++
+    } else {
+      currentIndex = 0
+    }
 
-    console.log(event.target)
+    imgs.forEach((i) => {
+      dist.push(i.getBoundingClientRect().x)
+    })
+
+    const windowLarge = window.innerWidth
+    const atCenter = currentIndex < imgs.length - 1 ? (windowLarge - 400) / 2 : (windowLarge - 400) / 2;
+
+
+    const distx = dist[currentIndex] - atCenter;
+    console.log(currentIndex)
+    console.log(distx)
+
+    slider.style.transform = `translate3d(-${distx}px,0,0)`
   }
 
-  next.addEventListener('click', HandleNext)
+  next.addEventListener('click', HandleNext);
 
-  console.log(imgs)
+
+  function HandlePrev(event) {
+    if (currentIndex < imgs.length - 1) {
+      currentIndex--
+      console.log(currentIndex)
+    }
+    else {
+      currentIndex = imgs.length - 1;
+    }
+    const distX = imgs[currentIndex].getBoundingClientRect().x
+    console.log(imgs[currentIndex])
+    slider.style.transform = `translate3d(${distX}px,0,0)`
+  }
+
+  prev.addEventListener('click', HandlePrev);
+
 </script>
 
 </html>
